@@ -44,5 +44,13 @@ module.exports = {
             return res.send({ error: false, message: 'User found', data: findUser });
         }
         return res.send({ error: true, message: 'User not found', data: null });
+    },
+    updateUser: async (req, res) => {
+        try {
+            const updateduser = await User.updateOne({ secret: req.params.secret }, { $set: req.body });
+            res.status(200).json(updateduser);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
     }
 };  
